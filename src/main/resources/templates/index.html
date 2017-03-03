@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<title>通信录</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="person : ${persons}">
+                <form th:name="${person.name}+${person.id}" action="/update" method="get">
+                    <td th:text="${person.id}"></td>
+                    <td><input name="name" type="text" th:value="${person.name}" /></td>
+                    <td><input name="phone" type="text" th:value="${person.phone}" /></td>
+                    <td>
+                    	<a th:attr="href=@{javascript:document.}+${person.name}+${person.id}+@{.submit();}">修改</a>
+                    	&nbsp;&nbsp;&nbsp;
+                        <a th:attr="href=@{/delete?id=}+${person.id}">删除</a>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <form name="create" action="/create" method="get">
+                    <td></td>
+                    <td><input name="name" type="text" /></td>
+                    <td><input name="phone" type="text" /></td>
+                    <td><a href="javascript:document.create.submit();">新增</a></td>
+                </form>
+            </tr>
+		</tbody>
+	</table>
+</body>
+</html>
+
+
+
+
